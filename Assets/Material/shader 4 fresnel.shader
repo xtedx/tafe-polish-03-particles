@@ -11,6 +11,7 @@ Shader "Unlit/fresnelshader"
         Tags
         {
             "RenderType"="Transparent"
+            "Queue" = "Transparent"
         }
         LOD 100
 
@@ -53,7 +54,7 @@ Shader "Unlit/fresnelshader"
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o, o.vertex);
                 o.normal = UnityObjectToWorldNormal(v.normal);
-                //matrix mul tiplication
+                //matrix multiplication
                 o.worldPosition = mul(unity_ObjectToWorld, v.vertex);
 
                 return o;
@@ -69,17 +70,18 @@ Shader "Unlit/fresnelshader"
             }
 
             //standard frensel effect, glowing
-            fixed4 frensel_frag(v2f i) : SV_Target
+            fixed4 fresnel_frag(v2f i) : SV_Target
             {
                 float3 n = normalize(i.normal * _Colour);
                 float3 v = normalize(_WorldSpaceCameraPos - i.worldPosition);
-                return (1 - dot(v, n))  * sin(_Time.y * _Speed);
+                float4 col = (1 - dot(v, n))  * sin(_Time.y * _Speed); 
+                return col;
             }
             
             //this is like main function
             fixed4 frag(v2f i) : SV_Target
             {
-                return frensel_frag(i);
+                return fresnel_frag(i);
             }
             ENDCG
         }
