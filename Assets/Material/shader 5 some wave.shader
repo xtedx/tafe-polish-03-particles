@@ -1,6 +1,6 @@
-Shader "Unlit/something"{
+Shader "Unlit/somewave"{
     Properties{
-        _MainTex ("Texture", 2D) = "white" {}
+        //_MainTex ("Texture hi", 2D) = "white" {}
         _ColorA("Color A", Color) = (1,1,1,1)
         _ColorB("Color B", Color) = (0,0,0,0)
 
@@ -8,7 +8,8 @@ Shader "Unlit/something"{
         //        _Offset("UV Offset", Float) = 0
     }
         SubShader{
-            Tags { "Queue"="Geometry" "RenderType"="Opaque" }
+            Tags { "RenderType" = "Opauqe"
+                  "Queue" = "Transparent"}
             Pass{
 
             Cull Back
@@ -47,30 +48,29 @@ Shader "Unlit/something"{
                 //o.normal = UnityObjectToWorldNormal(v.normal);
                 return o;
             }
+
+            float InverseLerp(float a, float b, float v)
+            {
+                return (v-a)/(b-a);
+            }
+            
+            // float Lerp(float a, float b, float t){
+            //     return(1.0 - t) * a+b * t;
+            // }
             
             float4 frag (v2f i) : SV_Target{
                 //wave pattern
-                float xOffset = cos( i.uv.x * TAU * 8) * 0.01;
-                xOffset = 0;
-                float t = cos((i.uv.y + xOffset - _Time.y *  0.1)  * TAU * 3) * 0.5 + 0.5;
-                t *= 4-i.uv.y;
+                float xOffset = sin( i.uv.x * TAU * 8) * 0.01;
+                float t = sin((i.uv.y + xOffset - _Time.y *  0.1)  * TAU * 5) * 0.5 + 0.5;
+                t *= 1- i.uv.y;
+                
+                bool topBottomRemover = ( abs(i.normal.y ) < 0.8);
 
-                float waves = t;
-
-
-                float4 outColor = lerp(_ColorA, _ColorB, i.uv.y * _Time);
+                //removed the top + bottom 80%
+                float waves = t * topBottomRemover;
+                
+                float4 outColor = lerp(_ColorA, _ColorB, i.uv.y);
                 return float4( outColor.xyz * waves,1);
-                
-
-                
-               // i.uv.x *= cos(_Time.y);
-                //float4 col = tex2D(_MainTex, i.uv);
-                
-                //return float4(i.uv,0,1);
-                // 0 - u - x - r
-                // 1 - v - y - g
-                // 2 -   - z - b
-                // 3 -   - w - a
             }
             ENDCG
         }

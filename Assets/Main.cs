@@ -1,3 +1,4 @@
+using System;
 using TeddyToolKit.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,7 +61,15 @@ public class Main : MonoSingleton<Main>
         foreach (var o in demos)
         {
             o.SetActive(o.name == currentDemo.name);
-            o.GetComponent<ParticleDemo>().ResetParticle();
+            try
+            {
+                o.GetComponentInChildren<ParticleDemo>().ResetParticle();
+            }
+            catch (NullReferenceException)
+            {
+                //skip if no particle
+                continue;
+            }
             Debug.Log("set demo called");
         }
 

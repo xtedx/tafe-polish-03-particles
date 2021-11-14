@@ -3,18 +3,19 @@
 * unity APP zip
 * github link
 * 5 particles
-  * smoke particle
   * water puddle drop
-  * rocket exhaust
   * tyre dust
   * scratchies lotto effect
+##requirements done
+* 5 particles
+  * smoke particle
+  * rocket exhaust
 * 5 shaders
   * fresnel
   * wireframe
   * monochrome like sf5 ex costume
   * highlight
   * transparent
-##requirements done
 
 ##plan
 have a button for each particle/shader on the gui

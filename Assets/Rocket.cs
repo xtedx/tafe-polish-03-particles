@@ -1,9 +1,7 @@
 using UnityEngine;
 
 public class Rocket : ParticleDemo
-{
-    public ParticleSystem myParticle;
-    public GameObject myPlayer;
+{    
     public Rigidbody body;
     public float force = 2;
     /// <summary>
@@ -26,7 +24,7 @@ public class Rocket : ParticleDemo
         }
     }
 
-    public void ToggleParticle()
+    public override void ToggleParticle()
     {
         Debug.Log($"particle is playing {myParticle.isPlaying}");
         if (myParticle.isPlaying)
@@ -35,7 +33,7 @@ public class Rocket : ParticleDemo
             PlayParticle();
     }
 
-    public void ToogleParticle(bool play)
+    public override void ToogleParticle(bool play)
     {
         if (play)
             PlayParticle();
