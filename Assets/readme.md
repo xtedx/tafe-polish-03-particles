@@ -1,7 +1,6 @@
 #ass 3 plan
 ##requirements todo
-* unity APP zip
-* github link
+- all done
 
 ##requirements done
 * 5 particles
@@ -32,6 +31,9 @@
     * gpu usage of mostly 1000 fps and 1 ms
     * global illumination also is in the range of 4000fps and faster
   * looking at these results, there is no need to optimise the effects, because the calculations are relatively simple ones
+
+* unity APP zip
+* github link https://github.com/xtedx/tafe-polish-03-particles
 
 ##plan
 have a button for each particle/shader on the gui
