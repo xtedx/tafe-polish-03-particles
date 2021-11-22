@@ -74,7 +74,9 @@ Shader "Unlit/fresnelshader"
             {
                 float3 n = normalize(i.normal * _Colour);
                 float3 v = normalize(_WorldSpaceCameraPos - i.worldPosition);
-                float4 col = (1 - dot(v, n))  * sin(_Time.y * _Speed); 
+                float4 col = (1 - dot(v, n))  * sin(_Time.y * _Speed);
+                col += tex2D(_MainTex, i.uv);
+                UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
             
