@@ -13,6 +13,7 @@ public class Main : MonoSingleton<Main>
     // Start is called before the first frame update
     private void Start()
     {
+        ButtonSetDemo(demos[1]);
     }
 
     // Update is called once per frame
